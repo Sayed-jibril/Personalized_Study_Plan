@@ -1,0 +1,675 @@
+[
+  {
+    "question": "What courses are available in Year 1, Semester 1?",
+    "answer": [
+      "Falsafah Dan Isu Semasa",
+      "Penghayatan Etika dan Peradaban",
+      "Kursus Integriti dan Anti Rasuah",
+      "Sustainability and Society",
+      "Academic Writing",
+      "Mathematics for Computer Science",
+      "Problem Solving and Programming Fundamentals",
+      "Computer Organization and Architecture"
+    ]
+  },
+  {
+    "question": "What is the course code for Falsafah Dan Isu Semasa?",
+    "answer": "MPU 3163"
+  },
+  {
+    "question": "How many credits is Falsafah Dan Isu Semasa worth?",
+    "answer": 3
+  },
+  {
+    "question": "Does Falsafah Dan Isu Semasa have any prerequisites?",
+    "answer": "No prerequisites."
+  },
+  {
+    "question": "What is the course code for Penghayatan Etika dan Peradaban?",
+    "answer": "MPU 3173"
+  },
+  {
+    "question": "How many credits is Penghayatan Etika dan Peradaban worth?",
+    "answer": 3
+  },
+  {
+    "question": "Does Penghayatan Etika dan Peradaban have any prerequisites?",
+    "answer": "No prerequisites."
+  },
+  {
+    "question": "What is the course code for Kursus Integriti dan Anti Rasuah?",
+    "answer": "MPU 3323"
+  },
+  {
+    "question": "How many credits is Kursus Integriti dan Anti Rasuah worth?",
+    "answer": 3
+  },
+  {
+    "question": "Does Kursus Integriti dan Anti Rasuah have any prerequisites?",
+    "answer": "No prerequisites."
+  },
+  {
+    "question": "What is the course code for Sustainability and Society?",
+    "answer": "BBN 1022"
+  },
+  {
+    "question": "How many credits is Sustainability and Society worth?",
+    "answer": 3
+  },
+  {
+    "question": "Does Sustainability and Society have any prerequisites?",
+    "answer": "No prerequisites."
+  },
+  {
+    "question": "What is the course code for Academic Writing?",
+    "answer": "LLN 1012"
+  },
+  {
+    "question": "How many credits is Academic Writing worth?",
+    "answer": 3
+  },
+  {
+    "question": "What is the course code for Mathematics for Computer Science?",
+    "answer": "CCC 1113"
+  },
+  {
+    "question": "How many credits is Mathematics for Computer Science worth?",
+    "answer": 3
+  },
+  {
+    "question": "What is the Personalized Study Plan System?",
+    "answer": "The Personalized Study Plan System is a Flask-based web application that assists students and administrators in course recommendations, weekly study planning, administrative management, and providing chatbot support for course-related queries."
+  },
+  {
+    "question": "What are the system requirements for using the application?",
+    "answer": "The system requires a web browser (latest version of Chrome, Firefox, Edge, or Safari) and internet access."
+  },
+  {
+    "question": "How do I access the application?",
+    "answer": "To access the application, visit the web URL: https://personalizedstudyplan.onrender.com. On the landing page, you will see options for Student Login, Create Account, or Admin Login."
+  },
+  {
+    "question": "How do I register as a student?",
+    "answer": "On the landing page, click 'Create Account,' then fill in your Student ID, Name, Email, and Password. Optionally, upload a profile picture. Click 'Register' to complete the process."
+  },
+  {
+    "question": "How do I log in as a student?",
+    "answer": "On the landing page, click 'Student Login.' Enter your Student ID and Password, then click 'Login.' You will be redirected to the Home Page upon successful login."
+  },
+  {
+    "question": "What features are available on the Student Home Page?",
+    "answer": "The Home Page includes announcements, current semester details, an upcoming exam section, and navigation links to Course Recommendations, Study Planner, Chatbot Support, and more."
+  },
+  {
+    "question": "How do I use the Course Recommendation feature?",
+    "answer": "Go to the Course Recommendation page from the sidebar. Select your School, Programme, Year, and Semester, then click 'Next.' Mark any prerequisites you have completed and click 'Get Recommendations' to view eligible courses."
+  },
+  {
+    "question": "How do I use the Weekly Study Planner?",
+    "answer": "Access the Study Planner from the sidebar. Click '+Add New Task' to create a task by selecting the day, start/end time, and task description. You can edit or delete tasks later."
+  },
+  {
+    "question": "How do I interact with the chatbot?",
+    "answer": "Go to Chatbot Support from the sidebar or visit /chatbot. Type your query into the message box and press Send. The chatbot will respond with relevant information."
+  },
+  {
+    "question": "What should I do if the chatbot says it doesn't know the answer?",
+    "answer": "If the chatbot doesn't know the answer, it will say, 'Can you teach me?' Only admins can provide new answers by logging in and using the teaching mode feature."
+  },
+  {
+    "question": "How do I reset my password as a student?",
+    "answer": "On the Student Login page, click 'Forgot Password?' Enter your email address and check your inbox for a password reset link. Use the link to set a new password."
+  },
+  {
+    "question": "How do I log out as a student?",
+    "answer": "Click 'Logout' in the navigation bar or near your profile link. This will return you to the landing page."
+  },
+  {
+    "question": "How do I log in as an admin?",
+    "answer": "On the landing page, click 'Admin Login' or access /admin/login. Enter your username and password to log in."
+  },
+  {
+    "question": "What features are available on the Admin Dashboard?",
+    "answer": "The Admin Dashboard includes options to manage Schools, Programmes, Terms, Semesters, Courses, Announcements, and Semester Information."
+  },
+  {
+    "question": "How do I manage schools as an admin?",
+    "answer": "Go to /admin/manage_schools. Add a new school by providing its name and description. You can also edit or delete existing schools."
+  },
+  {
+    "question": "How do I manage programmes as an admin?",
+    "answer": "Visit /admin/manage_programmes. Add a programme by providing its name, selecting the school, and entering a description. You can also edit or delete programmes."
+  },
+  {
+    "question": "How do I manage terms and semesters as an admin?",
+    "answer": "For terms, go to /admin/manage_terms to add or edit academic years. For semesters, go to /admin/manage_semesters to associate terms with semesters and provide descriptions."
+  },
+  {
+    "question": "How do I manage courses as an admin?",
+    "answer": "Visit /admin/manage_courses to add, edit, or delete courses. Provide details such as Course Code, Name, Credit Hours, Programme, Semester, and any prerequisites."
+  },
+  {
+    "question": "How do I add announcements as an admin?",
+    "answer": "Go to /admin/announcements. Add a new announcement by providing a title and message. Announcements can also be deleted if no longer needed."
+  },
+  {
+    "question": "How do I update semester information as an admin?",
+    "answer": "Go to /admin/semesterinfo. Update the semester's name, start/end dates, and exam dates. Set 'Is_Current=1' to activate the semester."
+  },
+  {
+    "question": "How do I teach the chatbot new answers as an admin?",
+    "answer": "If the chatbot says, 'I don\u00e2\u20ac\u2122t know the answer,' log in as admin and access the teaching mode at /teach. Provide the question and answer in JSON format to update the knowledge base."
+  },
+  {
+    "question": "What should I do if I cannot log in?",
+    "answer": "Ensure your username/password or Student ID/password is correct. Use the 'Forgot Password' feature for students or consult an admin for admin credentials."
+  },
+  {
+    "question": "Why are there no announcements displayed?",
+    "answer": "The admin may not have added any announcements, or the announcements table in the database is empty."
+  },
+  {
+    "question": "What should I do if the chatbot doesn\u00e2\u20ac\u2122t recognize my query?",
+    "answer": "The question may not exist in the knowledge base. Contact an admin to add the answer using the chatbot's teaching mode."
+  },
+  {
+    "question": "Does Mathematics for Computer Science have any prerequisites?",
+    "answer": "No prerequisites."
+  },
+  {
+    "question": "What is the course code for Problem Solving and Programming Fundamentals?",
+    "answer": "CCC 1123"
+  },
+  {
+    "question": "How many credits is Problem Solving and Programming Fundamentals worth?",
+    "answer": 3
+  },
+  {
+    "question": "Does Problem Solving and Programming Fundamentals have any prerequisites?",
+    "answer": "No prerequisites."
+  },
+  {
+    "question": "What is the course code for Computer Organization and Architecture?",
+    "answer": "CCC 1133"
+  },
+  {
+    "question": "What is the description of Computer Organization and Architecture?",
+    "answer": "No description available"
+  },
+  {
+    "question": "Does Computer Organization and Architecture have any prerequisites?",
+    "answer": "No prerequisites."
+  },
+  {
+    "question": "What courses are available in Year 1, Semester 2?",
+    "answer": [
+      "Penghayatan Etika dan Peradaban",
+      "Bahasa Melayu Komunikasi II",
+      "Entrepreneurship and Innovation",
+      "Data Communications and Networking",
+      "Object Oriented Programming",
+      "Probability and Statistics",
+      "Artificial Intelligence"
+    ]
+  },
+  {
+    "question": "What is the course code for Penghayatan Etika dan Peradaban?",
+    "answer": "MPU 3173"
+  },
+  {
+    "question": "How many credits is Penghayatan Etika dan Peradaban worth?",
+    "answer": 3
+  },
+  {
+    "question": "Does Penghayatan Etika dan Peradaban have any prerequisites?",
+    "answer": "No prerequisites."
+  },
+  {
+    "question": "What is the course code for Bahasa Melayu Komunikasi II?",
+    "answer": "MPU 3143"
+  },
+  {
+    "question": "What is the description of Bahasa Melayu Komunikasi II?",
+    "answer": "No description available"
+  },
+  {
+    "question": "Does Bahasa Melayu Komunikasi II have any prerequisites?",
+    "answer": "No prerequisites."
+  },
+  {
+    "question": "What is the course code for Entrepreneurship and Innovation?",
+    "answer": "MPU 3213"
+  },
+  {
+    "question": "What is the description of Entrepreneurship and Innovation?",
+    "answer": "No description available"
+  },
+  {
+    "question": "How many credits is Entrepreneurship and Innovation worth?",
+    "answer": 3
+  },
+  {
+    "question": "Does Entrepreneurship and Innovation have any prerequisites?",
+    "answer": "No prerequisites."
+  },
+  {
+    "question": "What is the course code for Data Communications and Networking?",
+    "answer": "CCC 1213"
+  },
+  {
+    "question": "What is the description of Data Communications and Networking?",
+    "answer": "No description available"
+  },
+  {
+    "question": "Does Data Communications and Networking have any prerequisites?",
+    "answer": "No prerequisites."
+  },
+  {
+    "question": "What is the course code for Object Oriented Programming?",
+    "answer": "CCC 1223"
+  },
+  {
+    "question": "What is the description of Object Oriented Programming?",
+    "answer": "No description available"
+  },
+  {
+    "question": "What is the prerequisite for Object Oriented Programming?",
+    "answer": "The prerequisite for Object Oriented Programming is Problem Solving and Programming Fundamentals."
+  },
+  {
+    "question": "What is the course code for Probability and Statistics?",
+    "answer": "CCC 1233"
+  },
+  {
+    "question": "What is the description of Probability and Statistics?",
+    "answer": "No description available"
+  },
+  {
+    "question": "How many credits is Probability and Statistics worth?",
+    "answer": 3
+  },
+  {
+    "question": "Does Probability and Statistics have any prerequisites?",
+    "answer": "No prerequisites."
+  },
+  {
+    "question": "What is the course code for Artificial Intelligence?",
+    "answer": "CCC 1243"
+  },
+  {
+    "question": "How many credits is Artificial Intelligence worth?",
+    "answer": 3
+  },
+  {
+    "question": "Does Artificial Intelligence have any prerequisites?",
+    "answer": "No prerequisites."
+  },
+  {
+    "question": "What courses are available in Year 1, Semester 3?",
+    "answer": [
+      "Social Business I",
+      "Cyber Ethics",
+      "Discrete Mathematics"
+    ]
+  },
+  {
+    "question": "What is the course code for Social Business I?",
+    "answer": "BBU 1012"
+  },
+  {
+    "question": "What is the description of Social Business I?",
+    "answer": "No description available"
+  },
+  {
+    "question": "Does Social Business I have any prerequisites?",
+    "answer": "No prerequisites."
+  },
+  {
+    "question": "What is the course code for Cyber Ethics?",
+    "answer": "CCC 1313"
+  },
+  {
+    "question": "What is the description of Cyber Ethics?",
+    "answer": "No description available"
+  },
+  {
+    "question": "Does Cyber Ethics have any prerequisites?",
+    "answer": "No prerequisites."
+  },
+  {
+    "question": "What is the course code for Discrete Mathematics?",
+    "answer": "CCC 1323"
+  },
+  {
+    "question": "What is the description of Discrete Mathematics?",
+    "answer": "No description available"
+  },
+  {
+    "question": "How many credits is Discrete Mathematics worth?",
+    "answer": 3
+  },
+  {
+    "question": "What is the prerequisite for Discrete Mathematics?",
+    "answer": "The prerequisite for Discrete Mathematics is Mathematics for Computer Science."
+  },
+  {
+    "question": "What courses are available in Year 2, Semester 1?",
+    "answer": [
+      "Data Structures and Algorithm Analysis",
+      "Operating Systems",
+      "Database Management Systems",
+      "Software Engineering",
+      "FIELD ELECTIVE 1",
+      "Web Design and Development"
+    ]
+  },
+  {
+    "question": "What is the course code for Data Structures and Algorithm Analysis?",
+    "answer": "CCC 2113"
+  },
+  {
+    "question": "What is the description of Data Structures and Algorithm Analysis?",
+    "answer": "No description available"
+  },
+  {
+    "question": "How many credits is Data Structures and Algorithm Analysis worth?",
+    "answer": 3
+  },
+  {
+    "question": "What is the prerequisite for Data Structures and Algorithm Analysis?",
+    "answer": "The prerequisite for Data Structures and Algorithm Analysis is Discrete Mathematics."
+  },
+  {
+    "question": "What is the course code for Operating Systems?",
+    "answer": "CCC 2123"
+  },
+  {
+    "question": "What is the description of Operating Systems?",
+    "answer": "No description available"
+  },
+  {
+    "question": "How many credits is Operating Systems worth?",
+    "answer": 3
+  },
+  {
+    "question": "What is the prerequisite for Operating Systems?",
+    "answer": "The prerequisite for Operating Systems is Computer Organization and Architecture."
+  },
+  {
+    "question": "What is the course code for Database Management Systems?",
+    "answer": "CCC 2133"
+  },
+  {
+    "question": "What is the description of Database Management Systems?",
+    "answer": "No description available"
+  },
+  {
+    "question": "How many credits is Database Management Systems worth?",
+    "answer": 3
+  },
+  {
+    "question": "What is the prerequisite for Database Management Systems?",
+    "answer": "The prerequisite for Database Management Systems is Problem Solving and Programming Fundamentals."
+  },
+  {
+    "question": "What is the course code for Software Engineering?",
+    "answer": "CCC 2143"
+  },
+  {
+    "question": "What is the description of Software Engineering?",
+    "answer": "No description available"
+  },
+  {
+    "question": "How many credits is Software Engineering worth?",
+    "answer": 3
+  },
+  {
+    "question": "What is the prerequisite for Software Engineering?",
+    "answer": "The prerequisite for Software Engineering is Problem Solving and Programming Fundamentals."
+  },
+  {
+    "question": "What is the course code for FIELD ELECTIVE 1?",
+    "answer": "XXX XXX3-1"
+  },
+  {
+    "question": "What is the description of FIELD ELECTIVE 1?",
+    "answer": "No description available"
+  },
+  {
+    "question": "How many credits is FIELD ELECTIVE 1 worth?",
+    "answer": 3
+  },
+  {
+    "question": "Does FIELD ELECTIVE 1 have any prerequisites?",
+    "answer": "No prerequisites."
+  },
+  {
+    "question": "What is the course code for Web Design and Development?",
+    "answer": "CDE2224"
+  },
+  {
+    "question": "What is the description of Web Design and Development?",
+    "answer": "No description available"
+  },
+  {
+    "question": "How many credits is Web Design and Development worth?",
+    "answer": 3
+  },
+  {
+    "question": "Does Web Design and Development have any prerequisites?",
+    "answer": "No prerequisites."
+  },
+  {
+    "question": "What courses are available in Year 2, Semester 2?",
+    "answer": [
+      "Directed Study in Computer Science",
+      "Machine Learning",
+      "Fundamental of Information Security",
+      "FIELD ELECTIVE 2",
+      "FIELD ELECTIVE 3",
+      "Free Elective 2"
+    ]
+  },
+  {
+    "question": "What is the course code for Directed Study in Computer Science?",
+    "answer": "CCC 2214"
+  },
+  {
+    "question": "What is the description of Directed Study in Computer Science?",
+    "answer": "No description available"
+  },
+  {
+    "question": "How many credits is Directed Study in Computer Science worth?",
+    "answer": 3
+  },
+  {
+    "question": "Does Directed Study in Computer Science have any prerequisites?",
+    "answer": "No prerequisites."
+  },
+  {
+    "question": "What is the course code for Machine Learning?",
+    "answer": "CCS 2213"
+  },
+  {
+    "question": "What is the description of Machine Learning?",
+    "answer": "No description available"
+  },
+  {
+    "question": "How many credits is Machine Learning worth?",
+    "answer": 3
+  },
+  {
+    "question": "What is the prerequisite for Machine Learning?",
+    "answer": "The prerequisite for Machine Learning is Artificial Intelligence."
+  },
+  {
+    "question": "What is the course code for Fundamental of Information Security?",
+    "answer": "CCS 2223"
+  },
+  {
+    "question": "What is the description of Fundamental of Information Security?",
+    "answer": "No description available"
+  },
+  {
+    "question": "How many credits is Fundamental of Information Security worth?",
+    "answer": 3
+  },
+  {
+    "question": "What is the prerequisite for Fundamental of Information Security?",
+    "answer": "The prerequisite for Fundamental of Information Security is Data Communications and Networking."
+  },
+  {
+    "question": "How many credits is Free Elective 2 worth?",
+    "answer": 3
+  },
+  {
+    "question": "Does Free Elective 2 have any prerequisites?",
+    "answer": "No prerequisites."
+  },
+  {
+    "question": "What courses are available in Year 2, Semester 3?",
+    "answer": [
+      "Project 1",
+      "Cryptography Essential",
+      "Free Elective 3"
+    ]
+  },
+  {
+    "question": "What is the course code for Project 1?",
+    "answer": "CCC 3013"
+  },
+  {
+    "question": "What is the description of Project 1?",
+    "answer": "No description available"
+  },
+  {
+    "question": "How many credits is Project 1 worth?",
+    "answer": 3
+  },
+  {
+    "question": "What is the prerequisite for Project 1?",
+    "answer": "The prerequisite for Project 1 is Software Engineering."
+  },
+  {
+    "question": "What is the course code for Cryptography Essential?",
+    "answer": "CCS 2243"
+  },
+  {
+    "question": "What is the description of Cryptography Essential?",
+    "answer": "No description available"
+  },
+  {
+    "question": "How many credits is Cryptography Essential worth?",
+    "answer": 3
+  },
+  {
+    "question": "What is the prerequisite for Cryptography Essential?",
+    "answer": "The prerequisite for Cryptography Essential is Discrete Mathematics."
+  },
+  {
+    "question": "What courses are available in Year 3, Semester 1?",
+    "answer": [
+      "Project 2",
+      "FIELD ELECTIVE 4",
+      "FIELD ELECTIVE 5",
+      "FIELD ELECTIVE 6",
+      "FIELD ELECTIVE 7"
+    ]
+  },
+  {
+    "question": "What is the course code for Project 2?",
+    "answer": "CCC 3026"
+  },
+  {
+    "question": "How many credits is Project 2 worth?",
+    "answer": 3
+  },
+  {
+    "question": "What is the prerequisite for Project 2?",
+    "answer": "The prerequisite for Project 2 is Project 1."
+  },
+  {
+    "question": "hi",
+    "answer": "Hey there! How can I help you today?"
+  },
+  {
+    "question": "hello",
+    "answer": "hi, How can I help you?"
+  },
+  {
+    "question": "do you know first semester courses?",
+    "answer": "Falsafah Dan Isu Semasa, Penghayatan Etika dan Peradaban, Kursus Integriti dan Anti Rasuah, Sustainability and Society, Academic Writing, Mathematics for Computer Science, Problem Solving and Programming Fundamentals, Computer Organization and Architecture"
+  },
+  {
+    "question": "sup",
+    "answer": "Yo dude! I am doing fine. how about you?",
+    "created_at": "2025-01-01T22:59:56.892964",
+    "updated_at": "2025-01-01T22:59:56.892964"
+  },
+  {
+    "question": "me too! can you help me",
+    "answer": "Sure, How can I assist you?",
+    "created_at": "2025-01-01T23:00:30.615594",
+    "updated_at": "2025-01-01T23:00:30.615594"
+  },
+  {
+    "question": "do you know my name?",
+    "answer": "no, I am just an academic assistant here to help you!",
+    "created_at": "2025-01-01T23:13:24.938868",
+    "updated_at": "2025-01-01T23:13:24.938868"
+  },
+  {
+    "question": "How many courses do we have in first semester?",
+    "answer": "7",
+    "created_at": "2025-01-02T10:21:52.257527",
+    "updated_at": "2025-01-02T10:21:52.257527"
+  },
+  {
+    "question": "what are the courses avalable in year 1 smester 1?",
+    "answer": "Falsafah Dan Isu Semasa,Penghayatan Etika dan Peradaban,Kursus Integriti dan Anti Rasuah,Sustainability and Society,Academic Writing,Mathematics for Computer Science,Problem Solving and Programming Fundamentals,Computer Organization and Architecture",
+    "created_at": "2025-01-11T21:28:08.881272",
+    "updated_at": "2025-01-11T21:28:08.881272"
+  },
+  {
+    "question": "What is the course code for Sustainability and ciety?",
+    "answer": "What is the course code for Sustanability and Society?",
+    "created_at": "2025-01-23T11:33:09.838534",
+    "updated_at": "2025-01-23T11:33:09.838534"
+  },
+  {
+    "question": "good afternoon",
+    "answer": "What is the course code for Sustainability and Society?",
+    "created_at": "2025-01-23T11:38:11.570953",
+    "updated_at": "2025-01-23T11:38:11.570953"
+  },
+  {
+    "question": "good morning",
+    "answer": "Hi there, How can I assist you today?",
+    "created_at": "2025-01-23T11:38:54.993173",
+    "updated_at": "2025-01-23T11:38:54.993173"
+  },
+  {
+    "question": "do you know rion",
+    "answer": "No, I was created by Rion, Though he was unable to make me like JARVIS, But I am still happy to help the Students!",
+    "created_at": "2025-01-23T12:14:09.173970",
+    "updated_at": "2025-01-23T12:14:09.173970"
+  },
+  {
+    "question": "Rion",
+    "answer": "He's the creator of This system",
+    "created_at": "2025-01-23T12:22:14.002187",
+    "updated_at": "2025-01-23T12:22:14.002187"
+  },
+  {
+    "question": "Harry",
+    "answer": "He's the creator of This system",
+    "created_at": "2025-01-23T12:22:15.002187",
+    "updated_at": "2025-01-23T12:22:15.002187"
+  },
+  {
+    "question": "I am just an assistant to assist you",
+    "answer": "no, You are student and I am the one who is assistant here!",
+    "created_at": "2025-01-23T12:28:36.341946",
+    "updated_at": "2025-01-23T12:28:36.341946"
+  }
+]

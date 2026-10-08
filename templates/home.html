@@ -1,0 +1,100 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="mb-4">
+    <h2 class="font-weight-bold">Welcome to the Personalized Study Plan System</h2>
+    <p class="text-muted">
+        This platform recommends courses for a given semester based on prerequisites and provides access to a chatbot for
+        assistance. Use the left sidebar to navigate through the main features.
+    </p>
+</div>
+
+<!-- Row for Announcements + Current Semester Info -->
+<div class="row">
+    <!-- Announcements Section -->
+    <div class="col-md-6 mb-3">
+        <div class="card shadow-sm h-100">
+            <div class="card-body">
+                <h5 class="card-title font-weight-bold">
+                    <i class="fas fa-bullhorn"></i> Announcements
+                </h5>
+                {% if announcements and announcements|length > 0 %}
+                <ul class="list-unstyled">
+                    {% for ann in announcements %}
+                    <li class="mb-2">
+                        <strong>{{ ann.Title }}</strong>: {{ ann.Message }}
+                        <br><small class="text-muted">Created: {{ ann.Created_At }}</small>
+                    </li>
+                    {% endfor %}
+                </ul>
+                {% else %}
+                <p>No announcements available at the moment.</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <!-- Current Semester / Countdown Info -->
+    <div class="col-md-6 mb-3">
+        <div class="card shadow-sm h-100">
+            <div class="card-body">
+                <h5 class="card-title font-weight-bold">
+                    <i class="fas fa-clock"></i> Current Semester
+                </h5>
+                {% if current_semester %}
+                <p><strong>Semester:</strong> {{ current_semester.SemesterName }}</p>
+                <p><strong>Start Date:</strong> {{ current_semester.Start_Date }}</p>
+                <p><strong>End Date:</strong> {{ current_semester.End_Date }}</p>
+                <div id="semester-countdown" class="text-primary font-weight-bold"></div>
+                {% else %}
+                <p>No current semester information available.</p>
+                {% endif %}
+
+                <hr>
+
+                <h5 class="card-title font-weight-bold">
+                    <i class="fas fa-pencil-ruler"></i> Upcoming Exam
+                </h5>
+                {% if exam_date %}
+                <p><strong>Exam Date:</strong> {{ exam_date }}</p>
+                <div id="exam-countdown" class="text-danger font-weight-bold"></div>
+                {% else %}
+                <p>No upcoming exam information available.</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Additional Key Features -->
+<div class="mt-4">
+    <h4>Key Features</h4>
+    <ul>
+        <li>Course Recommendations Based on Prerequisites</li>
+        <li>Chatbot Support for Assistance</li>
+        <li>Admin Dashboard for Management</li>
+    </ul>
+</div>
+
+<!-- Countdown JavaScript -->
+<script>
+    const semesterEnd = new Date("{{ current_semester.End_Date|default('') }}");
+    const examTime = new Date("{{ exam_date|default('') }}");
+
+    function daysLeftMessage(futureDate) {
+        const now = new Date();
+        const diff = futureDate - now;
+        if (isNaN(diff) || diff <= 0) {
+            return "No remaining days";
+        }
+        const days = Math.ceil(diff / (1000 * 60 * 60 * 24));
+        return `${days} day(s) remaining`;
+    }
+
+    document.getElementById('semester-countdown').textContent =
+        "Semester ends in: " + daysLeftMessage(semesterEnd);
+
+    document.getElementById('exam-countdown').textContent =
+        "Exam starts in: " + daysLeftMessage(examTime);
+</script>
+{% endblock %}

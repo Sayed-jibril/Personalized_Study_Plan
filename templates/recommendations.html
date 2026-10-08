@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-lg-10">
+        <div class="card shadow-sm">
+            <div class="card-header bg-primary text-white text-center">
+                <h3 class="mb-0">Recommended Courses</h3>
+            </div>
+            <div class="card-body">
+                <!-- Display Eligible Courses -->
+                {% if courses %}
+                <div class="table-responsive">
+                    <table class="table table-hover table-bordered">
+                        <thead class="thead-light">
+                            <tr>
+                                <th><i class="fas fa-code"></i> Course Code</th>
+                                <th><i class="fas fa-book"></i> Course Name</th>
+                                <th><i class="fas fa-tags"></i> Programme</th>
+                                <th><i class="fas fa-university"></i> School</th>
+                                <th><i class="fas fa-credit-card"></i> Credit Hours</th>
+                                <th><i class="fas fa-list"></i> Category</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for course in courses %}
+                            <tr>
+                                <td>{{ course.CourseCode }}</td>
+                                <td>{{ course.CourseName }}</td>
+                                <td>{{ course.ProgrammeName }}</td>
+                                <td>{{ course.SchoolName }}</td>
+                                <td>{{ course.CreditHours }}</td>
+                                <td>{{ course.Category }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                {% else %}
+                <div class="alert alert-info text-center" role="alert">
+                    <i class="fas fa-info-circle"></i> No eligible courses available based on your completed
+                    prerequisites.
+                </div>
+                {% endif %}
+
+                <!-- Display Ineligible Courses -->
+                {% if ineligible %}
+                <hr>
+                <h4 class="mt-4 mb-3 text-danger"><i class="fas fa-exclamation-triangle"></i> Courses You Cannot
+                    Register For:</h4>
+                <div class="table-responsive">
+                    <table class="table table-hover table-bordered">
+                        <thead class="thead-light">
+                            <tr>
+                                <th><i class="fas fa-code"></i> Course Code</th>
+                                <th><i class="fas fa-book"></i> Course Name</th>
+                                <th><i class="fas fa-question-circle"></i> Missing Prerequisites</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for course in ineligible %}
+                            <tr>
+                                <td>{{ course.CourseCode }}</td>
+                                <td>{{ course.CourseName }}</td>
+                                <td>{{ course.MissingPrerequisites }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                {% endif %}
+
+                <!-- Return to Previous Page and Print Button -->
+                <div class="text-center mt-4">
+                    <a href="{{ url_for('recommendation') }}" class="btn btn-secondary btn-lg">
+                        <i class="fas fa-arrow-left"></i> Register for Another Semester
+                    </a>
+                    <!-- Print Button -->
+                    <button onclick="window.print();" class="btn btn-info btn-lg ml-2">
+                        <i class="fas fa-print"></i> Print
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Font Awesome for Icons -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+{% endblock %}

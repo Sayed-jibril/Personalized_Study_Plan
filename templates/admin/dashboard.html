@@ -1,0 +1,120 @@
+<!-- templates/admin/dashboard.html -->
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="text-center mb-4">
+        <h2 class="display-4"><i class="fas fa-tachometer-alt"></i> Admin Dashboard</h2>
+        <p class="lead">Manage all aspects of the Course Registration System</p>
+    </div>
+
+    <div class="row">
+        <!-- Manage Schools -->
+        <div class="col-md-4 mb-4">
+            <div class="card text-white bg-primary h-100 shadow-sm">
+                <div class="card-body text-center">
+                    <i class="fas fa-university fa-3x mb-3"></i>
+                    <h5 class="card-title">Manage Schools</h5>
+                    <p class="card-text">Add, update, or remove schools within the system.</p>
+                    <a href="{{ url_for('manage_schools') }}" class="btn btn-light mt-3">
+                        <i class="fas fa-arrow-right"></i> Go
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Manage Programmes -->
+        <div class="col-md-4 mb-4">
+            <div class="card text-white bg-success h-100 shadow-sm">
+                <div class="card-body text-center">
+                    <i class="fas fa-graduation-cap fa-3x mb-3"></i>
+                    <h5 class="card-title">Manage Programmes</h5>
+                    <p class="card-text">Organize and oversee all programmes offered.</p>
+                    <a href="{{ url_for('manage_programmes') }}" class="btn btn-light mt-3">
+                        <i class="fas fa-arrow-right"></i> Go
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Manage Terms -->
+        <div class="col-md-4 mb-4">
+            <div class="card text-white bg-warning h-100 shadow-sm">
+                <div class="card-body text-center">
+                    <i class="fas fa-calendar-alt fa-3x mb-3"></i>
+                    <h5 class="card-title">Manage Terms</h5>
+                    <p class="card-text">Configure academic terms and schedules.</p>
+                    <a href="{{ url_for('manage_terms') }}" class="btn btn-light mt-3">
+                        <i class="fas fa-arrow-right"></i> Go
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Manage Semesters -->
+        <div class="col-md-4 mb-4">
+            <div class="card text-white bg-info h-100 shadow-sm">
+                <div class="card-body text-center">
+                    <i class="fas fa-layer-group fa-3x mb-3"></i>
+                    <h5 class="card-title">Manage Semesters</h5>
+                    <p class="card-text">Oversee semester details and timelines.</p>
+                    <a href="{{ url_for('manage_semesters') }}" class="btn btn-light mt-3">
+                        <i class="fas fa-arrow-right"></i> Go
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Manage Courses -->
+        <div class="col-md-4 mb-4">
+            <div class="card text-white bg-danger h-100 shadow-sm">
+                <div class="card-body text-center">
+                    <i class="fas fa-book fa-3x mb-3"></i>
+                    <h5 class="card-title">Manage Courses</h5>
+                    <p class="card-text">Add, edit, or delete courses and their prerequisites.</p>
+                    <a href="{{ url_for('manage_courses') }}" class="btn btn-light mt-3">
+                        <i class="fas fa-arrow-right"></i> Go
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Manage Announcements (New) -->
+        <div class="col-md-4 mb-4">
+            <div class="card text-white bg-secondary h-100 shadow-sm">
+                <div class="card-body text-center">
+                    <i class="fas fa-bullhorn fa-3x mb-3"></i>
+                    <h5 class="card-title">Manage Announcements</h5>
+                    <p class="card-text">Create, update, or delete announcements for users.</p>
+                    <a href="{{ url_for('admin_announcements') }}" class="btn btn-light mt-3">
+                        <i class="fas fa-arrow-right"></i> Go
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Manage Semester Info (New) -->
+        <div class="col-md-4 mb-4">
+            <div class="card text-white bg-dark h-100 shadow-sm">
+                <div class="card-body text-center">
+                    <i class="fas fa-info-circle fa-3x mb-3"></i>
+                    <h5 class="card-title">Manage Semester Info</h5>
+                    <p class="card-text">Set or edit current semester details and exam dates.</p>
+                    <a href="{{ url_for('admin_semesterinfo') }}" class="btn btn-light mt-3">
+                        <i class="fas fa-arrow-right"></i> Go
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="text-center mt-5">
+        <a href="{{ url_for('admin_logout') }}" class="btn btn-outline-danger btn-lg">
+            <i class="fas fa-sign-out-alt"></i> Logout
+        </a>
+    </div>
+</div>
+
+<!-- Font Awesome for Icons -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+{% endblock %}

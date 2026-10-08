@@ -1,0 +1,469 @@
+<!-- templates/admin/manage_courses.html -->
+{% extends "base.html" %}
+
+{% block content %}
+<!-- Inline CSS for additional styling and responsive design -->
+<style>
+    /* Existing styles (if any) can be placed here */
+
+    /* Responsive Screen Size Definitions */
+
+    /* Extra Small Devices (Phones, <576px) */
+    @media (max-width: 575.98px) {
+        .container {
+            padding: 1rem;
+        }
+
+        .card {
+            margin: 0.5rem;
+        }
+
+        .btn-lg {
+            width: 100%;
+        }
+
+        .display-4 {
+            font-size: 1.75rem;
+        }
+
+        .lead {
+            font-size: 1rem;
+        }
+
+        /* Adjust table font size */
+        table {
+            font-size: 0.875rem;
+        }
+    }
+
+    /* Small Devices (Landscape Phones, ≥576px) */
+    @media (min-width: 576px) and (max-width: 767.98px) {
+        .container {
+            max-width: 540px;
+        }
+
+        .display-4 {
+            font-size: 2rem;
+        }
+
+        .lead {
+            font-size: 1.125rem;
+        }
+    }
+
+    /* Medium Devices (Tablets, ≥768px) */
+    @media (min-width: 768px) and (max-width: 991.98px) {
+        .container {
+            max-width: 720px;
+        }
+
+        .display-4 {
+            font-size: 2.5rem;
+        }
+
+        .lead {
+            font-size: 1.25rem;
+        }
+
+        /* Ensure cards take full width */
+        .col-lg-6 {
+            flex: 0 0 100%;
+            max-width: 100%;
+        }
+    }
+
+    /* Large Devices (Desktops, ≥992px) */
+    @media (min-width: 992px) and (max-width: 1199.98px) {
+        .container {
+            max-width: 960px;
+        }
+
+        /* Use full width columns */
+        .col-lg-6 {
+            flex: 0 0 50%;
+            max-width: 50%;
+        }
+    }
+
+    /* Extra Large Devices (Large Desktops, ≥1200px) */
+    @media (min-width: 1200px) {
+        .container {
+            max-width: 1140px;
+        }
+
+        /* Utilize full screen on desktop */
+        .col-lg-6 {
+            flex: 0 0 50%;
+            max-width: 50%;
+        }
+
+        /* Optional: Increase font sizes for better readability */
+        .display-4 {
+            font-size: 3rem;
+        }
+
+        .lead {
+            font-size: 1.5rem;
+        }
+
+        table {
+            font-size: 1rem;
+        }
+    }
+</style>
+
+<div class="container mt-5">
+    <!-- Header -->
+    <div class="text-center mb-4">
+        <h2 class="display-4"><i class="fas fa-book"></i> Manage Courses</h2>
+        <p class="lead">Add, edit, or remove courses and manage their prerequisites.</p>
+    </div>
+
+    <div class="row">
+        <!-- Add New Course Form -->
+        <div class="col-lg-6 mb-4">
+            <div class="card shadow-sm h-100">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0">
+                        <i class="fas fa-plus-circle"></i> Add New Course
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <!-- Brief instructions for users -->
+                    <p class="text-muted mb-4">
+                        Fill in all the details below, then click <strong>Add Course</strong>.
+                    </p>
+
+                    <form method="POST">
+                        <!-- Course Code -->
+                        <div class="form-group">
+                            <label for="course_code" data-toggle="tooltip" data-placement="top"
+                                title="A unique code identifying this course (e.g., CS101)">
+                                <i class="fas fa-code"></i> Course Code:
+                            </label>
+                            <small class="form-text text-muted">
+                                Must be unique (e.g., CS101).
+                            </small>
+                            <input type="text" name="course_code" id="course_code" class="form-control"
+                                placeholder="e.g., CS101" required>
+                        </div>
+
+                        <!-- Course Name -->
+                        <div class="form-group">
+                            <label for="course_name" data-toggle="tooltip" data-placement="top"
+                                title="Full name of the course (e.g., Introduction to Computer Science)">
+                                <i class="fas fa-book"></i> Course Name:
+                            </label>
+                            <small class="form-text text-muted">
+                                Enter the course title (e.g., Introduction to Computer Science).
+                            </small>
+                            <input type="text" name="course_name" id="course_name" class="form-control"
+                                placeholder="e.g., Introduction to Computer Science" required>
+                        </div>
+
+                        <!-- Credit Hours -->
+                        <div class="form-group">
+                            <label for="credit_hours" data-toggle="tooltip" data-placement="top"
+                                title="The number of credit hours for this course">
+                                <i class="fas fa-credit-card"></i> Credit Hours:
+                            </label>
+                            <small class="form-text text-muted">
+                                Typical range is 1–4 credit hours.
+                            </small>
+                            <input type="number" name="credit_hours" id="credit_hours" class="form-control" min="1"
+                                placeholder="e.g., 3" required>
+                        </div>
+
+                        <!-- Select Programme -->
+                        <div class="form-group">
+                            <label for="programme_id" data-toggle="tooltip" data-placement="top"
+                                title="Which programme does this course belong to?">
+                                <i class="fas fa-graduation-cap"></i> Select Programme:
+                            </label>
+                            <small class="form-text text-muted">
+                                Choose the programme offering this course.
+                            </small>
+                            <select name="programme_id" id="programme_id" class="form-control" required>
+                                <option value="" disabled selected>Select Programme</option>
+                                {% for programme in programmes %}
+                                <option value="{{ programme.ProgrammeID }}">{{ programme.ProgrammeName }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+
+                        <!-- Select Semester -->
+                        <div class="form-group">
+                            <label for="semester_id" data-toggle="tooltip" data-placement="top"
+                                title="Which semester is this course taught in?">
+                                <i class="fas fa-calendar-alt"></i> Select Semester:
+                            </label>
+                            <small class="form-text text-muted">
+                                Choose the semester when this course is offered.
+                            </small>
+                            <select name="semester_id" id="semester_id" class="form-control" required>
+                                <option value="" disabled selected>Select Semester</option>
+                                {% for semester in semesters %}
+                                <option value="{{ semester.SemesterID }}">{{ semester.Description }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+
+                        <!-- Category -->
+                        <div class="form-group">
+                            <label for="category" data-toggle="tooltip" data-placement="top"
+                                title="The category or type of this course (e.g., MPU, Elective, etc.)">
+                                <i class="fas fa-list"></i> Category:
+                            </label>
+                            <small class="form-text text-muted">
+                                Select the appropriate course type (e.g., MPU, university_compulsory, etc.).
+                            </small>
+                            <select name="category" id="category" class="form-control" required>
+                                <option value="" disabled selected>Select Course Type</option>
+                                <option value="mpu">MPU</option>
+                                <option value="university_compulsory">University Compulsory</option>
+                                <option value="core_computing">Core Computing</option>
+                                <option value="discipline_core">Discipline Core</option>
+                                <option value="field_elective">Field Elective</option>
+                                <option value="free_elective">Free Elective</option>
+                                <option value="project">Project</option>
+                                <option value="industrial_training">Industrial Training</option>
+                            </select>
+                        </div>
+
+                        <!-- Prerequisites -->
+                        <div class="form-group">
+                            <label data-toggle="tooltip" data-placement="top"
+                                title="Select any courses that must be taken first">
+                                <i class="fas fa-check-square"></i> Select Prerequisites:
+                            </label>
+                            <small class="form-text text-muted">
+                                Tick any courses that students must complete beforehand.
+                            </small>
+                            <div class="card p-3">
+                                {% for course in existing_courses %}
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="prerequisites"
+                                        value="{{ course.CourseCode }}" id="{{ course.CourseCode }}">
+                                    <label class="form-check-label" for="{{ course.CourseCode }}">
+                                        {{ course.CourseCode }} - {{ course.CourseName }}
+                                    </label>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+
+                        <!-- Submit Button -->
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-primary btn-lg">
+                                <i class="fas fa-plus"></i> Add Course
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Existing Courses Table -->
+        <div class="col-lg-6 mb-4">
+            <div class="card shadow-sm h-100">
+                <div class="card-header bg-success text-white">
+                    <h5 class="mb-0">
+                        <i class="fas fa-list"></i> Existing Courses
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <!-- Filtering and Sorting Form -->
+                    <form method="get" action="{{ url_for('manage_courses') }}" class="mb-3">
+                        <div class="row">
+                            <!-- Sorting Criteria Checkboxes -->
+                            <div class="col">
+                                <label>Sort By:</label><br>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="checkbox" name="sort_by" value="sch.SchoolName" id="sortSchool" {%
+                                        if 'sch.SchoolName' in request.args.getlist('sort_by') %}checked{% endif %}>
+                                    <label class="form-check-label" for="sortSchool">School</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="checkbox" name="sort_by" value="p.ProgrammeName"
+                                        id="sortProgramme" {% if 'p.ProgrammeName' in request.args.getlist('sort_by') %}checked{% endif %}>
+                                    <label class="form-check-label" for="sortProgramme">Programme</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="checkbox" name="sort_by" value="t.TermNumber" id="sortTerm" {%
+                                        if 't.TermNumber' in request.args.getlist('sort_by') %}checked{% endif %}>
+                                    <label class="form-check-label" for="sortTerm">Term</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="checkbox" name="sort_by" value="sem.SemesterNumber"
+                                        id="sortSemester" {% if 'sem.SemesterNumber' in request.args.getlist('sort_by') %}checked{% endif
+                                        %}>
+                                    <label class="form-check-label" for="sortSemester">Semester</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="checkbox" name="sort_by" value="c.CourseCode" id="sortCourse" {%
+                                        if 'c.CourseCode' in request.args.getlist('sort_by') %}checked{% endif %}>
+                                    <label class="form-check-label" for="sortCourse">Course Code</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="checkbox" name="sort_by" value="c.CreditHours" id="sortCredit" {%
+                                        if 'c.CreditHours' in request.args.getlist('sort_by') %}checked{% endif %}>
+                                    <label class="form-check-label" for="sortCredit">Credit Hours</label>
+                                </div>
+                            </div>
+                    
+                            <!-- Order Dropdown -->
+                            <div class="col">
+                                <label>Order:</label>
+                                <select name="order" class="form-control">
+                                    <option value="ASC" {% if request.args.get('order')=='ASC' %}selected{% endif %}>Ascending</option>
+                                    <option value="DESC" {% if request.args.get('order')=='DESC' %}selected{% endif %}>Descending</option>
+                                </select>
+                            </div>
+                        </div>
+                    
+                        <div class="row mt-3">
+                            <!-- School Filter -->
+                            <div class="col">
+                                <label for="filter_school">Filter by School:</label>
+                                <select name="filter_school" id="filter_school" class="form-control">
+                                    <option value="">All Schools</option>
+                                    <!-- Add dynamic school options here if available -->
+                                    <option value="1" {% if request.args.get('filter_school')=='1' %}selected{% endif %}>SCI</option>
+                                    
+                                    <!-- Add more schools as necessary -->
+                                </select>
+                            </div>
+                    
+                            <!-- Programme Filter -->
+                            <div class="col">
+                                <label for="filter_programme">Filter by Programme:</label>
+                                <select name="filter_programme" id="filter_programme" class="form-control">
+                                    <option value="">All Programmes</option>
+                                    <!-- Add dynamic programme options here if available -->
+                                    <option value="1" {% if request.args.get('filter_programme')=='1' %}selected{% endif %}>Computer Science</option>               
+                                    <!-- Add more programmes as necessary -->
+                                </select>
+                            </div>
+                        </div>
+                    
+                        <div class="row mt-3">
+                            <!-- Term Filter -->
+                            <div class="col">
+                                <label for="filter_term">Filter by Term:</label>
+                                <select name="filter_term" id="filter_term" class="form-control">
+                                    <option value="">All Terms</option>
+                                    <option value="1" {% if request.args.get('filter_term')=='1' %}selected{% endif %}>Year 1</option>
+                                    <option value="2" {% if request.args.get('filter_term')=='2' %}selected{% endif %}>Year 2</option>
+                                    <option value="3" {% if request.args.get('filter_term')=='3' %}selected{% endif %}>Year 3</option>
+                                    <!-- Add more terms if necessary -->
+                                </select>
+                            </div>
+                    
+                            <!-- Semester Filter -->
+                            <div class="col">
+                                <label for="filter_semester">Filter by Semester:</label>
+                                <select name="filter_semester" id="filter_semester" class="form-control">
+                                    <option value="">All Semesters</option>
+                                    <option value="1" {% if request.args.get('filter_semester')=='1' %}selected{% endif %}>Semester 1
+                                    </option>
+                                    <option value="2" {% if request.args.get('filter_semester')=='2' %}selected{% endif %}>Semester 2
+                                    </option>
+                                    <option value="3" {% if request.args.get('filter_semester')=='3' %}selected{% endif %}>Semester 3
+                                    </option>
+                                    <!-- Add more semesters if necessary -->
+                                </select>
+                            </div>
+                        </div>
+                    
+                        <div class="row mt-3">
+                            <div class="col">
+                                <button type="submit" class="btn btn-primary">Apply Sorting & Filtering</button>
+                            </div>
+                        </div>
+                    </form>
+
+                    {% if courses %}
+                    <div class="table-responsive">
+                        <!-- Added table-striped for improved readability -->
+                        <table class="table table-hover table-bordered table-striped">
+                            <thead class="thead-light">
+                                <tr>
+                                    <th>
+                                        <a href="{{ url_for('manage_courses', sort_by='CourseCode', order='ASC') }}">
+                                            Course Code
+                                        </a>
+                                    </th>
+                                    <th>Course Name</th>
+                                    <th>Credit Hours</th>
+                                    <th>Category</th>
+                                    <th>Programme</th>
+                                    <th>School</th>
+                                    <th>Semester</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for course in courses %}
+                                <tr>
+                                    <td>{{ course.CourseCode }}</td>
+                                    <td>{{ course.CourseName }}</td>
+                                    <td>{{ course.CreditHours }}</td>
+                                    <td>{{ course.Category }}</td>
+                                    <td>{{ course.ProgrammeName }}</td>
+                                    <td>{{ course.SchoolName }}</td>
+                                    <td>{{ course.SemesterDesc }}</td>
+                                    <td>
+                                        <!-- Edit Button -->
+                                        <a href="{{ url_for('edit_course', course_id=course.CourseID) }}"
+                                            class="btn btn-sm btn-warning" title="Edit">
+                                            <i class="fas fa-edit"></i>
+                                        </a>
+
+                                        <!-- Delete Button -->
+                                        <form action="{{ url_for('delete_course', course_id=course.CourseID) }}"
+                                            method="POST" style="display:inline-block;"
+                                            onsubmit="return confirm('Are you sure you want to delete this course? This will delete all associated prerequisites.')">
+                                            <button type="submit" class="btn btn-sm btn-danger" title="Delete">
+                                                <i class="fas fa-trash-alt"></i>
+                                            </button>
+                                        </form>
+
+                                        <!-- Update Prerequisites Button -->
+                                        <a href="{{ url_for('update_prerequisites', course_id=course.CourseID) }}"
+                                            class="btn btn-sm btn-info" title="Update Prerequisites">
+                                            <i class="fas fa-sync-alt"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    {% else %}
+                    <div class="alert alert-warning text-center" role="alert">
+                        <i class="fas fa-exclamation-triangle"></i> No courses available. Please add a new course.
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Back to Dashboard Button -->
+    <div class="text-center mt-4">
+        <a href="{{ url_for('admin_dashboard') }}" class="btn btn-secondary btn-lg">
+            <i class="fas fa-arrow-left"></i> Back to Dashboard
+        </a>
+    </div>
+</div>
+
+<!-- Initialize Bootstrap tooltips -->
+<script>
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip()
+    });
+</script>
+
+<!-- Font Awesome for Icons -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+{% endblock %}

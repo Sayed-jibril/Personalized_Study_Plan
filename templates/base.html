@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <!--
+      Viewport meta tag is essential for responsive design
+      (especially on mobile devices).
+    -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personalized Study Plan</title>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/logo.png') }}">
+
+    <!-- Google Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Poppins:wght@400;600&display=swap"
+        rel="stylesheet">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+    <!-- Custom CSS -->
+    <!-- Custom External CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+
+<body>
+    <!-- HEADER (No "Home" link at top, only Admin) -->
+    <div class="container-fluid header">
+        <div class="row">
+            <!-- Left side: Logo + System Name -->
+            <div class="col d-flex align-items-center header-left">
+                <img src="/static/images/logo.png" alt="System Logo" aria-label="University Logo">
+                <h1 class="header-title mb-0" aria-label="Persionalized Study Plan">
+                    Personalized Study Plan
+                </h1>
+            </div>
+            <!-- Right side: Only Admin link(s) now -->
+            <!-- HEADER RIGHT SECTION (Admin, Student, etc.) -->
+            <div class="col-auto d-flex align-items-center justify-content-end header-right">
+                {% if session.get('admin_logged_in') %}
+                <a href="{{ url_for('admin_dashboard') }}"
+                    class="{% if request.endpoint == 'admin_dashboard' %}active-link{% endif %}"
+                    aria-label="Admin Dashboard Page">
+                    <i class="fas fa-user-shield"></i> Admin Dashboard
+                </a>
+                <a href="{{ url_for('admin_logout') }}" class="text-danger" aria-label="Admin Logout">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </a>
+
+                {% elif session.get('student_logged_in') %}
+                <a href="{{ url_for('home') }}" class="{% if request.endpoint == 'home' %}active-link{% endif %}"
+                    aria-label="Student Home Page">
+                    <i class="fas fa-user-graduate"></i> Student Dashboard
+                </a>
+                <a href="{{ url_for('student_logout') }}" class="text-danger" aria-label="Student Logout">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </a>
+
+                {% else %}
+                <!-- Only Show Login Links -->
+                <a href="{{ url_for('admin_login') }}"
+                    class="{% if request.endpoint == 'admin_login' %}active-link{% endif %}"
+                    aria-label="Admin Login Page">
+                    <i class="fas fa-user-lock"></i> Admin Login
+                </a>
+                <a href="{{ url_for('student_login') }}"
+                    class="{% if request.endpoint == 'student_login' %}active-link{% endif %}"
+                    aria-label="Student Login Page">
+                    <i class="fas fa-user"></i> Student Login
+                </a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <!-- FLASH MESSAGES -->
+    <div class="container-fluid mt-3">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+        {% for category, message in messages %}
+        <div class="alert alert-{{ category }} alert-dismissible fade show shadow-sm" role="alert">
+            <strong>{{ category|capitalize }}:</strong> {{ message }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        {% endfor %}
+        {% endif %}
+        {% endwith %}
+    </div>
+
+    <!-- MAIN LAYOUT: SIDEBAR + CONTENT -->
+    <div class="container-fluid mt-3">
+        <div class="row">
+            {% if session.get('student_logged_in') or session.get('admin_logged_in') %}
+            <!-- LEFT SIDEBAR (Now has "Home") -->
+            <div class="col-md-2 sidebar">
+                <nav class="nav flex-column" aria-label="Sidebar Navigation">
+                    <a class="nav-link {% if request.endpoint == 'home' %}active{% endif %}"
+                        href="{{ url_for('home') }}">
+                        <i class="fas fa-home"></i> Home
+                    </a>
+                    <a class="nav-link {% if request.endpoint == 'recommendation' %}active{% endif %}"
+                        href="{{ url_for('recommendation') }}">
+                        <i class="fas fa-book-reader"></i> Course Recommendation
+                    </a>
+                    <a class="nav-link {% if request.endpoint == 'study_planner' %}active{% endif %}" href="{{ url_for('study_planner') }}">
+                        <i class="fas fa-calendar-alt"></i> Study Planner
+                    </a>
+                    <a class="nav-link {% if request.endpoint == 'chatbot' %}active{% endif %}"
+                        href="{{ url_for('chatbot') }}">
+                        <i class="fas fa-comments"></i> Chatbot Support
+                    </a>
+                </nav>
+            </div>
+            {% endif %}
+
+            <!-- MAIN CONTENT -->
+            <div class="
+                {% if session.get('student_logged_in') or session.get('admin_logged_in') %}
+                    col-md-10
+                {% else %}
+                    col-md-12
+                {% endif %}
+                {% if request.endpoint in ['student_login','admin_login','student_register','admin_register'] %}
+                    d-flex align-items-center justify-content-center
+                {% endif %}
+            " {% if request.endpoint in ['student_login','admin_login','student_register','admin_register'] %}
+                style="min-height: 70vh;" {% endif %}>
+                {% block content %}
+                <!-- Default content if not overridden -->
+                <h2>Welcome!</h2>
+                <p class="text-muted">
+                    Use the sidebar on the left to explore our features. Admin options are in the top right.
+                </p>
+                {% endblock %}
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="text-white mt-5 p-4 text-center">
+        <div class="container-fluid">
+            <p>&copy; {{ current_year }} Albukhary International University. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS and Dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdQHHwJnEaykOihvd5vzTwxjjFeYmE0acHHRm2uavRSUXz5GMWkCGB2m9lVFjh"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+        integrity="sha384-9/reFTGAW83EW2RDu0OezW/4UPkAEMvPwzWXqtGgihTpg1G6VknKx38ns6Q9hZ9r"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+        integrity="sha384-B4gt1jrGC7Jh4Ag5dVJGxgtMKXTzbbSTO5LGJvXk/1EJAe7v9MIR+JVCkk4VHAwR"
+        crossorigin="anonymous"></script>
+    <!-- jQuery (Full Version) -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    
+    <!-- Popper.js -->
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    
+    <!-- Bootstrap JS -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    
+    <!-- Custom Script Placeholder -->
+    {% block scripts %}{% endblock %}
+
+    
+</body>
+
+</html>

@@ -1,0 +1,156 @@
+{% extends "base.html" %}
+
+{% block content %}
+<!-- Chatbot Section -->
+<div class="chatbot-section">
+    <div class="container">
+        <!-- Title & Subtitle -->
+        <h2 class="text-center mb-3"><i class="fas fa-comments"></i> Chatbot Support</h2>
+        <p class="lead text-center text-muted mb-5">Ask your questions and get assistance instantly.</p>
+
+        <!-- Chatbot Interface -->
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <!-- Chat Display Area -->
+                <div id="chatbot-container" class="border rounded p-3 bg-light"
+                    style="height: 400px; overflow-y: auto;">
+                    <!-- Initial Chatbot Message -->
+                    <div class="message-bubble message-bot">
+                        <em>Chatbot:</em> Hello! How can I assist you today?
+                    </div>
+                </div>
+
+                <!-- Chat Input Form -->
+                <form id="chatbot-form" class="mt-3">
+                    <div class="input-group">
+                        <input type="text" id="user-input" class="form-control" placeholder="Type your message..."
+                            required>
+                        <div class="input-group-append">
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-paper-plane"></i> Send
+                            </button>
+                        </div>
+                    </div>
+                </form>
+
+                <!-- Teach Form (Hidden by Default) -->
+                <form id="teach-form" class="mt-3 d-none">
+                    <div class="form-group">
+                        <label for="teach-answer"><i class="fas fa-book-open"></i> Provide the answer:</label>
+                        <textarea id="teach-answer" class="form-control" rows="3"
+                            placeholder="Enter the correct answer..." required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-success">
+                        <i class="fas fa-save"></i> Save Answer
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- JavaScript for Handling Chatbot Communication -->
+<script>
+    const chatbotContainer = document.getElementById('chatbot-container');
+    const chatbotForm = document.getElementById('chatbot-form');
+    const teachForm = document.getElementById('teach-form');
+    let lastUserInput = ''; // Store the last user input for teaching
+
+    // Function to add a message to the chat container
+    function addMessage(sender, message, isBot = false) {
+        const messageDiv = document.createElement('div');
+        messageDiv.classList.add('message-bubble', isBot ? 'message-bot' : 'message-user');
+        messageDiv.innerHTML = `<strong>${sender}:</strong> ${message}`;
+        chatbotContainer.appendChild(messageDiv);
+        chatbotContainer.scrollTop = chatbotContainer.scrollHeight; // Scroll to the bottom
+    }
+
+    // Handle chatbot form submission
+    chatbotForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const userInput = document.getElementById('user-input').value.trim();
+        if (!userInput) return;
+
+        addMessage('You', userInput); // Display user's message
+        document.getElementById('user-input').value = ''; // Clear input field
+
+        try {
+            const response = await fetch("{{ url_for('chat') }}", {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ user_input: userInput })
+            });
+            const data = await response.json(); // Expect a JSON response
+
+            // Display the chatbot's response
+            addMessage('Chatbot', data.response, true);
+
+            // Show teach form if the bot doesn't know the answer and admin is logged in
+            if (data.response.includes("Can you teach me")) {
+                teachForm.classList.remove('d-none');
+                lastUserInput = userInput; // Store the last user input
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            addMessage('Chatbot', 'Sorry, something went wrong. Please try again later.', true);
+        }
+    });
+
+    // Handle teach form submission
+    teachForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const teachAnswer = document.getElementById('teach-answer').value.trim();
+        if (!teachAnswer) return;
+
+        try {
+            const response = await fetch("{{ url_for('teach') }}", {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    user_input: lastUserInput, // Send the last question
+                    new_answer: teachAnswer // Send the new answer
+                })
+            });
+            const data = await response.json(); // Expect a JSON response
+
+            // Display the chatbot's confirmation
+            addMessage('Chatbot', data.response, true);
+
+            // Hide and clear the teach form
+            teachForm.classList.add('d-none');
+            document.getElementById('teach-answer').value = '';
+            lastUserInput = ''; // Reset last user input
+        } catch (error) {
+            console.error('Error:', error);
+            addMessage('Chatbot', 'Sorry, I couldn\'t save that. Please try again later.', true);
+        }
+    });
+</script>
+
+<!-- Custom CSS for Chat Bubbles -->
+<style>
+    .message-bubble {
+        padding: 10px;
+        margin: 5px 0;
+        border-radius: 10px;
+        max-width: 70%;
+    }
+
+    .message-bot {
+        background-color: #f1f1f1;
+        align-self: flex-start;
+    }
+
+    .message-user {
+        background-color: #007bff;
+        color: white;
+        align-self: flex-end;
+    }
+
+    .clearfix::after {
+        content: "";
+        clear: both;
+        display: table;
+    }
+</style>
+{% endblock %}

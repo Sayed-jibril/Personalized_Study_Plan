@@ -1,0 +1,125 @@
+<!-- templates/admin/manage_semesters.html -->
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-5">
+    <!-- Header -->
+    <div class="text-center mb-4">
+        <h2 class="display-4"><i class="fas fa-calendar-alt"></i> Manage Semesters</h2>
+        <p class="lead">Add, edit, or remove semesters and manage their details.</p>
+    </div>
+
+    <div class="row">
+        <!-- Add New Semester Form -->
+        <div class="col-lg-6 mb-4">
+            <div class="card shadow-sm h-100">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0"><i class="fas fa-plus-circle"></i> Add New Semester</h5>
+                </div>
+                <div class="card-body">
+                    <form method="POST">
+                        <!-- Select Term -->
+                        <div class="form-group">
+                            <label for="term_id"><i class="fas fa-tags"></i> Select Term:</label>
+                            <select name="term_id" id="term_id" class="form-control" required>
+                                <option value="" disabled selected>Select Term</option>
+                                {% for term in terms %}
+                                <option value="{{ term.TermID }}">{{ term.TermNumber }} - {{ term.Description }}
+                                </option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <!-- Semester Number -->
+                        <div class="form-group">
+                            <label for="semester_number"><i class="fas fa-sort-numeric-down"></i> Semester
+                                Number:</label>
+                            <input type="number" name="semester_number" id="semester_number" class="form-control"
+                                min="1" placeholder="e.g., 1" required>
+                        </div>
+                        <!-- Description -->
+                        <div class="form-group">
+                            <label for="description"><i class="fas fa-info-circle"></i> Description:</label>
+                            <textarea name="description" id="description" class="form-control" rows="3"
+                                placeholder="Enter a brief description of the semester"></textarea>
+                        </div>
+                        <!-- Submit Button -->
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-primary btn-lg">
+                                <i class="fas fa-plus"></i> Add Semester
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Existing Semesters Table -->
+        <div class="col-lg-6 mb-4">
+            <div class="card shadow-sm h-100">
+                <div class="card-header bg-success text-white">
+                    <h5 class="mb-0"><i class="fas fa-list"></i> Existing Semesters</h5>
+                </div>
+                <div class="card-body">
+                    {% if semesters %}
+                    <div class="table-responsive">
+                        <table class="table table-hover table-bordered">
+                            <thead class="thead-light">
+                                <tr>
+                                    <th><i class="fas fa-id-badge"></i> Semester ID</th>
+                                    <th><i class="fas fa-sort-numeric-down"></i> Semester Number</th>
+                                    <th><i class="fas fa-info-circle"></i> Description</th>
+                                    <th><i class="fas fa-tags"></i> Term Number</th>
+                                    <th><i class="fas fa-tags"></i> Term Description</th>
+                                    <th><i class="fas fa-cogs"></i> Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for semester in semesters %}
+                                <tr>
+                                    <td>{{ semester.SemesterID }}</td>
+                                    <td>{{ semester.SemesterNumber }}</td>
+                                    <td>{{ semester.Description }}</td>
+                                    <td>{{ semester.TermNumber }}</td>
+                                    <td>{{ semester.TermDesc }}</td>
+                                    <td>
+                                        <!-- Edit Button -->
+                                        <a href="{{ url_for('edit_semester', semester_id=semester.SemesterID) }}"
+                                            class="btn btn-sm btn-warning" title="Edit">
+                                            <i class="fas fa-edit"></i>
+                                        </a>
+
+                                        <!-- Delete Button -->
+                                        <form action="{{ url_for('delete_semester', semester_id=semester.SemesterID) }}"
+                                            method="POST" style="display:inline-block;"
+                                            onsubmit="return confirm('Are you sure you want to delete this semester? This will delete all associated courses and prerequisites.')">
+                                            <button type="submit" class="btn btn-sm btn-danger" title="Delete">
+                                                <i class="fas fa-trash-alt"></i>
+                                            </button>
+                                        </form>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    {% else %}
+                    <div class="alert alert-warning text-center" role="alert">
+                        <i class="fas fa-exclamation-triangle"></i> No semesters available. Please add a new semester.
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Back to Dashboard Button -->
+    <div class="text-center mt-4">
+        <a href="{{ url_for('admin_dashboard') }}" class="btn btn-secondary btn-lg">
+            <i class="fas fa-arrow-left"></i> Back to Dashboard
+        </a>
+    </div>
+</div>
+
+<!-- Font Awesome for Icons -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+{% endblock %}

@@ -1,0 +1,57 @@
+<!-- templates/admin/login.html -->
+{% extends "base.html" %}
+
+{% block content %}
+<div class="d-flex align-items-center justify-content-center vh-100">
+    <div class="card shadow-lg" style="width: 400px;">
+        <div class="card-header bg-primary text-white text-center">
+            <h3 class="mb-0"><i class="fas fa-user-shield"></i> Admin Login</h3>
+        </div>
+        <div class="card-body">
+            <form method="POST">
+                <!-- Username Field -->
+                <div class="form-group">
+                    <label for="username"><i class="fas fa-user"></i> Username:</label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="username-icon">
+                                <i class="fas fa-user"></i>
+                            </span>
+                        </div>
+                        <input type="text" name="username" id="username" class="form-control"
+                            placeholder="Enter your username" aria-describedby="username-icon" required>
+                    </div>
+                </div>
+
+                <!-- Password Field -->
+                <div class="form-group">
+                    <label for="password"><i class="fas fa-lock"></i> Password:</label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="password-icon">
+                                <i class="fas fa-lock"></i>
+                            </span>
+                        </div>
+                        <input type="password" name="password" id="password" class="form-control"
+                            placeholder="Enter your password" aria-describedby="password-icon" required>
+                    </div>
+                </div>
+
+                <!-- Submit Button -->
+                <div class="form-group text-center">
+                    <button type="submit" class="btn btn-primary btn-lg btn-block">
+                        <i class="fas fa-sign-in-alt"></i> Login
+                    </button>
+                </div>
+            </form>
+            <!-- Optional: Forgot Password Link -->
+            <div class="text-center">
+                <a href="#" class="text-primary"><i class="fas fa-question-circle"></i> Forgot Password?</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Font Awesome for Icons -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+{% endblock %}

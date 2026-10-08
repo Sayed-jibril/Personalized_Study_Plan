@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block content %}
+<main class="container my-5" role="main">
+    <section class="text-center">
+        <h1 class="mb-4 font-weight-bold">Welcome to the Personalized Study Plan System</h1>
+        <p class="lead mb-4 text-muted">
+            Get started with your personalized study journey by choosing an option below:
+        </p>
+        <div class="d-flex justify-content-center flex-wrap">
+            <a href="{{ url_for('student_login') }}" class="btn btn-primary btn-lg m-2 shadow" role="button">
+                <i class="fas fa-user" aria-hidden="true"></i> Student Login
+            </a>
+            <a href="{{ url_for('register') }}" class="btn btn-success btn-lg m-2 shadow" role="button">
+                <i class="fas fa-user-plus" aria-hidden="true"></i> Create Account
+            </a>
+            <a href="{{ url_for('admin_login') }}" class="btn btn-dark btn-lg m-2 shadow" role="button">
+                <i class="fas fa-user-lock" aria-hidden="true"></i> Admin Login
+            </a>
+        </div>
+    </section>
+</main>
+{% endblock %}

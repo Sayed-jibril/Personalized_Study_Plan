@@ -1,0 +1,161 @@
+{% extends "base.html" %}
+
+{% block content %}
+<!-- Hero/Jumbotron Section -->
+<div class="hero-section" style="background: linear-gradient(135deg, #f0f4f8, #dee7f0);
+            padding: 3rem 0;
+            border-radius: 0.5rem;
+            text-align: center;
+            margin-bottom: 2rem;">
+    <h1 class="display-4" aria-label="Course Registration System Title">
+        Register for Courses
+    </h1>
+    <p class="lead text-muted">
+        Select your school and programme to see personalized course options.
+    </p>
+</div>
+
+<!-- Example Notification (if user profile incomplete) -->
+<div class="alert alert-warning" role="alert" aria-label="Profile Incomplete Alert">
+    <strong>Heads up!</strong> Please fill in all required details to get course recommandation.
+</div>
+
+<!-- Course Registration Form -->
+<div class="container mb-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow-sm">
+                <div class="card-header bg-primary text-white text-center">
+                    <h3 class="mb-0">Course Recommandation</h3>
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title text-center mb-4">Welcome!</h5>
+
+                    <form method="POST" aria-label="Course Registration Form">
+                        <!-- School Selection -->
+                        <div class="form-group">
+                            <label for="school">Select School:</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="school-icon">
+                                        <i class="fas fa-university"></i>
+                                    </span>
+                                </div>
+                                <select name="school" id="school" class="form-control" aria-describedby="school-icon"
+                                    required>
+                                    <option value="" disabled selected>Select School</option>
+                                    {% for school in schools %}
+                                    <option value="{{ school.SchoolID }}">{{ school.SchoolName }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- Programme Selection -->
+                        <div class="form-group">
+                            <label for="programme">Select Programme:</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="programme-icon">
+                                        <i class="fas fa-graduation-cap"></i>
+                                    </span>
+                                </div>
+                                <select name="programme" id="programme" class="form-control"
+                                    aria-describedby="programme-icon" required>
+                                    <option value="" disabled selected>Select Programme</option>
+                                    {% if programmes %}
+                                    {% for programme in programmes %}
+                                    <option value="{{ programme.ProgrammeID }}">{{ programme.ProgrammeName }}</option>
+                                    {% endfor %}
+                                    {% else %}
+                                    <option value="" disabled>
+                                        No programmes available. Please select a school first.
+                                    </option>
+                                    {% endif %}
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- Year Selection -->
+                        <div class="form-group">
+                            <label for="year">Enter your current academic year:</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="year-icon">
+                                        <i class="fas fa-calendar-alt"></i>
+                                    </span>
+                                </div>
+                                <select name="year" id="year" class="form-control" aria-describedby="year-icon"
+                                    required>
+                                    <option value="" disabled selected>Select Year</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- Semester Selection -->
+                        <div class="form-group">
+                            <label for="semester">Enter the semester you want to register for:</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="semester-icon">
+                                        <i class="fas fa-book"></i>
+                                    </span>
+                                </div>
+                                <select name="semester" id="semester" class="form-control"
+                                    aria-describedby="semester-icon" required>
+                                    <option value="" disabled selected>Select Semester</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- Submit Button -->
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-custom btn-lg" aria-label="Proceed Next Step">
+                                Next <i class="fas fa-arrow-right"></i>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- JS for Dynamic Programme Fetching (if needed) -->
+<script>
+    document.getElementById('school').addEventListener('change', function () {
+        const schoolId = this.value;
+        const programmeDropdown = document.getElementById('programme');
+
+        // Clear existing programme options
+        programmeDropdown.innerHTML = '<option value="" disabled selected>Loading programmes...</option>';
+
+        // Fetch programmes for the selected school
+        fetch(`/get_programmes/${schoolId}`)
+            .then(response => response.json())
+            .then(data => {
+                programmeDropdown.innerHTML = '<option value="" disabled selected>Select Programme</option>';
+                if (data.programmes && data.programmes.length > 0) {
+                    data.programmes.forEach(programme => {
+                        const option = document.createElement('option');
+                        option.value = programme.ProgrammeID;
+                        option.textContent = programme.ProgrammeName;
+                        programmeDropdown.appendChild(option);
+                    });
+                } else {
+                    programmeDropdown.innerHTML = '<option value="" disabled>No programmes available.</option>';
+                }
+            })
+            .catch(error => {
+                console.error('Error fetching programmes:', error);
+                programmeDropdown.innerHTML = '<option value="" disabled>Error fetching programmes.</option>';
+            });
+    });
+</script>
+{% endblock %}

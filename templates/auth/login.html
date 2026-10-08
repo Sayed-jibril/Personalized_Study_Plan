@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+{% block title %}Student Login{% endblock %}
+
+{% block content %}
+<!-- Centered Login Form -->
+<div class="d-flex justify-content-center align-items-center"
+    style="min-height: 80vh; background: linear-gradient(115deg, #f0f4f8, #dee7f0);">
+    <div class="card shadow-lg p-5" style="width: 400px; border-radius: 15px; background-color: #ffffff;">
+        <div class="text-center mb-4">
+            <i class="fas fa-user-graduate fa-3x text-primary"></i>
+            <h3 class="mt-3 font-weight-bold">Student Login</h3>
+        </div>
+
+        <!-- Student Login Form -->
+        <form method="POST" action="{{ url_for('student_login') }}">
+            <div class="form-group">
+                <label for="student_id"><i class="fas fa-id-card"></i> Student ID</label>
+                <input type="text" name="student_id" id="student_id" class="form-control form-control-lg"
+                    placeholder="Enter your Student ID" required style="border-radius: 25px; padding-left: 15px;">
+            </div>
+
+            <div class="form-group">
+                <label for="password"><i class="fas fa-lock"></i> Password</label>
+                <input type="password" name="password" id="password" class="form-control form-control-lg"
+                    placeholder="Enter your Password" required style="border-radius: 25px; padding-left: 15px;">
+            </div>
+
+            <!-- Login Button with Forgot Password Link -->
+            <div class="form-group d-flex justify-content-between align-items-center">
+                <button type="submit" class="btn btn-primary btn-block"
+                    style="border-radius: 25px; background: linear-gradient(45deg, #1e3c72, #2a5298); border: none;">
+                    <i class="fas fa-sign-in-alt"></i> Login
+                </button>
+            </div>
+
+            <!-- Forgot Password and Registration Links -->
+            <div class="d-flex justify-content-between">
+                <a href="{{ url_for('forgot_password') }}" class="text-danger">
+                    <i class="fas fa-key"></i> Forgot Password?
+                </a>
+                <a href="{{ url_for('register') }}" class="text-primary">
+                    <i class="fas fa-user-plus"></i> Register
+                </a>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Smooth Animation -->
+<style>
+    .card {
+        animation: fadeIn 1s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+        0% {
+            opacity: 0;
+            transform: translateY(-20px);
+        }
+
+        100% {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .btn-primary:hover {
+        background: linear-gradient(45deg, #2a5298, #1e3c72);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    }
+</style>
+{% endblock %}

@@ -1,0 +1,30 @@
+<!-- templates/admin/edit_semester.html -->
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Edit Semester: {{ semester.Description }}</h2>
+<form method="POST">
+    <div class="form-group">
+        <label for="term_id">Select Term:</label>
+        <select name="term_id" id="term_id" class="form-control" required>
+            <option value="" disabled>Select Term</option>
+            {% for term in terms %}
+            <option value="{{ term.TermID }}" {% if term.TermID==semester.TermID %} selected {% endif %}>{{
+                term.TermNumber }} - {{ term.Description }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="semester_number">Semester Number:</label>
+        <input type="number" name="semester_number" id="semester_number" class="form-control"
+            value="{{ semester.SemesterNumber }}" min="1" required>
+    </div>
+    <div class="form-group">
+        <label for="description">Description:</label>
+        <textarea name="description" id="description" class="form-control">{{ semester.Description }}</textarea>
+    </div>
+    <button type="submit" class="btn btn-primary">Update Semester</button>
+</form>
+<br>
+<a href="{{ url_for('manage_semesters') }}" class="btn btn-secondary">Back to Manage Semesters</a>
+{% endblock %}
